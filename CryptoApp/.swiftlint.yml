@@ -1,0 +1,134 @@
+disabled_rules:
+- trailing_whitespace
+opt_in_rules:
+- empty_count
+- empty_string
+excluded:
+- "*.generated.swift"
+- Carthage
+- Pods
+- SwiftLint/Common/3rdPartyLib
+line_length:
+    warning: 150
+    error: 200
+    ignores_function_declarations: true
+    ignores_comments: true
+    ignores_urls: true
+function_body_length:
+    warning: 300
+    error: 500
+function_parameter_count:
+    warning: 6
+    error: 8
+type_body_length:
+    warning: 300
+    error: 500
+file_length:
+    warning: 1000
+    error: 1500
+    ignore_comment_only_lines: true
+cyclomatic_complexity:
+    warning: 15
+    error: 25
+    
+custom_rules:
+  image_name_initialization: # Disable UIImage init from name
+    included: ".*.swift"
+    name: "Image initialization"
+    regex: 'UIImage\(named:[^)]+\)'
+    message: "Use R.image.name or typealiaas of this instead"
+    severity: error
+
+  font_name_initialization:
+    name: "Fonts initialization"
+    regex: 'UIFont(\.init)?\(name: ?"?.+"?, ?size:.+?\)'
+    message: "Use R.font.name or typealiaas of this instead"
+    severity: error
+
+  swiftgen_strings:
+    name: "Strings initialization"
+    regex: 'NSLocalizedString'
+    message: "Use String"
+    severity: error
+
+  color_name_initialization:
+    name: "Colors initialization"
+    regex: '(UIColor(\.init)?|#colorLiteral)\(((red|displayP3Red):.+?,green:.+?,blue:.+?,alpha:.+?)|(white:.+?,alpha:.+?)|(hue:.+?,saturation:.+?,brightness:.+?,alpha:.+?)\)'
+    message: "Use R.font or typealiaas of this instead"
+    severity: error
+
+  uinib:
+    included: ".*.swift"
+    name: "UINib Hardcoded"
+    regex: \(nibName:\ ?\"(.*)\"\)
+    message: "Hardcoded UINib strings are not allowed."
+    severity: error
+
+  open_iboutlets:
+    included: ".*.swift"
+    name: "IBOutlet opening"
+    regex: '@IBOutlet ?(weak){0,1} var'
+    message: "IBOutlet should be private"
+    severity: error
+
+  open_ibaction:
+    included: ".*.swift"
+    name: "IBAction opening"
+    regex: '@IBAction func'
+    message: "IBAction should be private"
+    severity: error
+
+  mark_newlines:
+    included: ".*.swift"
+    name: "MARK newlines surrounding"
+    regex: '(([}{)\w \t]+\n{1}[ \t]*)(\/\/ MARK: - [\w ]*))|((\/\/ MARK: - [\w ]*)(\n{1}[ \t]*\w+))'
+    message: "Every MARK should be surrounded with 1 newline before and 1 after it"
+    severity: warning
+
+  unnecessary_type:
+    name: "Unnecessary Type"
+    regex: '(?sm)[ \ta-zA-Z0-9]?(?:let|var){1} [ \ta-zA-Z0-9]+?:[ \t]+?([a-zA-Z0-9]+?)[\t ]+?=[\t ]?\1'
+    message: "Type Definition Not Needed"
+    severity: warning
+
+  comments_space:
+    name: "Space After Comment"
+    regex: '(^ *//\w+)'
+    message: "There should be a space after //"
+    severity: warning
+
+  empty_closure_params:
+    included: ".*.swift"
+    name: "Empty closure params"
+    regex: '\{ (\(\) -> Void in)$'
+    message: "`() -> Void in` should be avoided"
+    severity: warning
+
+  unnecessary_type:
+    name: "Unnecessary Type"
+    regex: '[ a-zA-Z0-9]*(?:let|var) [ a-zA-Z0-9]*: ([a-zA-Z0-9]*)[ ]*= \1\('
+    message: "Type Definition Not Needed"
+    severity: error
+
+  print_using:
+    regex: 'print'
+    message: "Print decrease performance of the app"
+
+  comments_space:
+    name: "Space After Comment"
+    regex: '(^ *//\w+)'
+    message: "There should be a space after //"
+    severity: warning
+
+  class_protocol:
+    regex: ': class'
+    message: "Use Anyobject instead"
+
+  foundation_using:
+    regex: 'import Foundation'
+    message: "Do you really need for Foundation ???"
+
+  required_init:
+    regex: 'required init\?\(coder: NSCoder\)'
+    message: "Use NL class instead"
+reporter: "xcode"
